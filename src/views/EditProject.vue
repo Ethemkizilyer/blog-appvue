@@ -1,5 +1,5 @@
 <template>
- 
+ <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia numquam saepe blanditiis, soluta dolorem eveniet libero tenetur unde impedit ipsam, modi a ipsum voluptatibus eius vel pariatur dignissimos magnam eum.</p>
 </template>
 
 <script>

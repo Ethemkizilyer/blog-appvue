@@ -1,9 +1,9 @@
 <template>
   <div class="home">
 
-    <div v-if="projects.length">
-      <div v-for="project in filteredProjects" :key="project.id">
-       <SingleProject :project="project"/>
+    <div v-if="posts.length">
+      <div v-for="post in posts" :key="post.id">
+       <SinglePost :post="post"/>
       </div>
     </div>
   </div>
@@ -11,15 +11,15 @@
 
 <script>
 
-import SingleProject from '@/components/SingleProject.vue';
+import SinglePost from '@/components/SinglePost.vue';
 
 export default {
   name: "Home",
-  components: {SingleProject},
+  components: {SinglePost},
   data() {
     return {
-      projects: [],
-      current:"all"
+      posts: [],
+  
     };
   },
 
