@@ -1,11 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
-    <label>Title</label>
-    <input v-model="title" required type="text" />
-    <label>Details</label>
-    <textarea v-model="details"></textarea>
-    <button>Update Project</button>
-  </form>
+ 
 </template>
 
 <script>
@@ -15,28 +9,9 @@ export default {
     return {
       title: "",
       details: "",
-      url: "http://localhost:3000/projects/" + this.id,
     };
   },
-  mounted() {
-    fetch(this.url)
-      .then((res) => res.json())
-      .then((data) => {
-        this.title = data.title;
-        this.details = data.details;
-      });
-  },
-  methods: {
-    handleSubmit() {
-      fetch(this.url, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title: this.title, details: this.details })
-          
-      }).then(() => this.$router.push("/"))
-          .catch((err) => console.log(err))
-    },
-  },
+
 };
 </script>
 
