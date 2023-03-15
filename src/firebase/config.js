@@ -19,5 +19,3 @@ const fb = initializeApp(firebaseConfig);
 
 export {fb}
 
-
-export {fb}

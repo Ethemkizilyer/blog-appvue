@@ -6,9 +6,13 @@ const getPosts =async() => {
 const db = getFirestore()
 const fbRef= collection(db,"posts")
 const fbDocs = await getDocs(fbRef);
-const data = fbDocs.docs.map((doc)=>doc.data())
+const data = fbDocs.docs.map((doc) => doc.data());
+const docID = fbDocs.docs.map((doc) => doc.id);
+const docdata = fbDocs.docs.map((doc) => {
+  return { ...doc.data(), id: doc.id };
+});
 
-return data
+return docdata;
 }
 
 export default getPosts
