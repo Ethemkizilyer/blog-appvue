@@ -1,57 +1,55 @@
 <template>
- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia numquam saepe blanditiis, soluta dolorem eveniet libero tenetur unde impedit ipsam, modi a ipsum voluptatibus eius vel pariatur dignissimos magnam eum.</p>
+ <div class="post">
+ <h3>{{ post.title }}</h3>
+ <div class="content">
+  <p>{{ post.content }}</p>
+ </div>
+ </div>
 </template>
 
 <script>
+import getPosts from '@/composables/getPosts';
+import { ref } from 'vue';
+
 export default {
   props: ["id"],
-  data() {
-    return {
-      title: "",
-      details: "",
-    };
-  },
+ setup(props) {
+  const post = ref("");
+    getPosts().then((data) => {
+      post.value = data.find(item=>item.id==props.id);
+    });
+    return {post}
+ }
 
 };
 </script>
 
 <style>
-form {
+.post {
+  margin: 20px auto;
   background: #fff;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+  border-left: 4px solid #ff5500;
+
 }
-label {
-  display: block;
-  color: #bbb;
-  text-transform: uppercase;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  margin: 20px 0px 10px 0;
+h3 {
+  cursor: pointer;
 }
-input {
-  padding: 10px;
-  border: 0;
-  border-bottom: 2px solid #ddd;
-  width: 100%;
-  box-sizing: border-box;
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-textarea {
-  border: 1px solid #ddd;
-  padding: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  height: 100px;
+.material-icons{
+    font-size: 24px;
+    margin-left: 10px;
+    color: #bbb;
+    cursor: pointer;
 }
-form button {
-  display: block;
-  margin: 20px auto 0px;
-  background: #76dd78;
-  color: #fff;
-  padding: 10px;
-  border: 0;
-  border-radius: 7px;
-  font-size: 16px;
+.material-icons:hover{
+color: #777;
 }
+
 </style>
