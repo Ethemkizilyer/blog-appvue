@@ -6,33 +6,66 @@
   <p>{{ post.content }}</p>
  </div>
 </div>
- 
-<svg :class="iconClass"><path :d="iconPath" /></svg>
-
+ <div>
+<svg   @click="
+                () => {
+                  showModal = true;
+                  return nam(id, (s = 'update'));
+                }
+              "  :class="iconClass"><path :d="iconPathE" /></svg>
+<svg @click="nam(id, (s = 'delete'))" :class="iconClass"><path :d="iconPathD" /></svg>
+</div>
  </div>
 </template>
 
 <script>
 import getPosts from '@/composables/getPosts';
-import { ref } from 'vue';
+import { ref,onMounted } from 'vue';
 import {
 
     mdiDelete,
     mdiPencil,
 
   } from '@mdi/js'
+import { collection, deleteDoc, doc, getFirestore, updateDoc } from '@firebase/firestore';
+import { fb } from '@/firebase/config';
+import { useRouter } from 'vue-router';
 
 
 export default {
   props: ["id"],
  setup(props) {
-    const iconPath = ref(mdiDelete);
+    const iconPathD = ref(mdiDelete);
+    const iconPathE = ref(mdiPencil);
+    const router=useRouter()
     const iconClass = ref('my-icon-class');
   const post = ref("");
     getPosts().then((data) => {
       post.value = data.find(item=>item.id==props.id);
     });
-    return {post,iconPath,iconClass}
+const db = getFirestore(fb);
+        const nam = (id, s) => {
+    
+      if (s == "update") {
+          const docRef = doc(db, "posts", id);
+      updateDoc(docRef, { title: "BAKARLAR" });
+ router.push({ name: 'Home' })
+    
+      }
+      if (s == "delete") {
+        const docRef = doc(db, "posts", id);
+        deleteDoc(docRef);
+   router.push({ name: 'Home' })
+      }
+      console.log(asd.value[0].name);
+    };
+
+
+      onMounted(async () => {
+      const db = getFirestore(fb);
+      const fbRef = collection(db, "books")})
+
+    return {post,iconPathD,iconPathE,iconClass,nam}
  }
 
 };
